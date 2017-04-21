@@ -1,0 +1,224 @@
+h1. tutorial Sample API.
+
+*Version:* 1.0.0
+
+----
+
+{toc:printable=true|style=square|minLevel=2|maxLevel=3|type=list|outline=false|include=.*}
+
+h2. Endpoints
+
+    h3. getPDFFile
+    {status:colour=Yellow|title=get|subtle=false}
+    {code}
+    get /pdf
+    {code}
+    *Summary:* Returns the report in the PDF format.
+    *Description:* get the selected PDF file.
+
+
+    h4. Parameters
+
+
+
+
+
+
+
+    h4. Responses
+        *Status Code:* 200
+        *Message:*     Get a PDF file.
+        {code:title=Response Type}
+file
+        {code}
+        See [#models]
+
+
+
+        {code:title=Response Schema |collapse=true}
+{
+  "description" : "Get a PDF file.",
+  "schema" : {
+    "type" : "file"
+  }
+}
+        {code}
+    ----
+
+    h3. loadZipFile
+    {status:colour=Yellow|title=post|subtle=false}
+    {code}
+    post /zip
+    {code}
+    *Summary:* Uploads a zip file.
+    *Description:* Upload the selected zip file.
+
+
+    h4. Parameters
+
+
+
+
+
+
+
+    h4. Responses
+        *Status Code:* 200
+        *Message:*     OK.
+        {code:title=Response Type}
+
+        {code}
+        See [#models]
+
+
+
+        {code:title=Response Schema |collapse=true}
+{
+  "description" : "OK."
+}
+        {code}
+    ----
+
+    h3. addUser
+    {status:colour=Yellow|title=post|subtle=false}
+    {code}
+    post /users/{id}
+    {code}
+    *Summary:* Creates a new user.
+    *Description:* Add new user by name.
+
+
+    h4. Parameters
+
+        h5. Body Parameter
+        ||Name||Description||Required||Default||Pattern||
+        |username |The user to create. |(x) | |  |
+
+
+
+
+
+
+    h4. Responses
+        *Status Code:* 200
+        *Message:*     OK.
+        {code:title=Response Type}
+User
+        {code}
+        See [#models]
+
+
+
+        {code:title=Response Schema |collapse=true}
+{
+  "description" : "OK.",
+  "schema" : {
+    "$ref" : "#/definitions/User"
+  }
+}
+        {code}
+    ----
+
+    h3. getUserById
+    {status:colour=Yellow|title=get|subtle=false}
+    {code}
+    get /users/{id}
+    {code}
+    *Summary:* Return a user by id.
+    *Description:* Show user detail for the selected user id.
+
+
+    h4. Parameters
+        h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |The id of the object. |(/) | |  |
+
+
+
+
+
+
+
+    h4. Responses
+        *Status Code:* 200
+        *Message:*     OK.
+        {code:title=Response Type}
+User
+        {code}
+        See [#models]
+
+
+
+        {code:title=Response Schema |collapse=true}
+{
+  "description" : "OK.",
+  "schema" : {
+    "$ref" : "#/definitions/User"
+  }
+}
+        {code}
+        *Status Code:* 400
+        *Message:*     The specified user ID is invalid (e.g. not a number).
+        {code:title=Response Type}
+ErrorModel
+        {code}
+        See [#models]
+
+
+
+        {code:title=Response Schema |collapse=true}
+{
+  "description" : "The specified user ID is invalid (e.g. not a number).",
+  "schema" : {
+    "$ref" : "#/definitions/ErrorModel"
+  }
+}
+        {code}
+        *Status Code:* 401
+        *Message:*     Unauthorized. Authentication information is missing or invalid
+        {code:title=Response Type}
+
+        {code}
+        See [#models]
+
+
+
+        {code:title=Response Schema |collapse=true}
+{
+  "description" : "Unauthorized. Authentication information is missing or invalid",
+  "headers" : {
+    "WWW_Authenticate" : {
+      "type" : "string"
+    }
+  }
+}
+        {code}
+        *Status Code:* 404
+        *Message:*     The specified resource was not found.
+        {code:title=Response Type}
+ErrorModel
+        {code}
+        See [#models]
+
+
+
+        {code:title=Response Schema |collapse=true}
+{
+  "description" : "The specified resource was not found.",
+  "schema" : {
+    "$ref" : "#/definitions/ErrorModel"
+  }
+}
+        {code}
+    ----
+
+h2. Models
+
+        h3. ErrorModel
+        ||Field Name||Required||Type||Description||
+         |code | |Integer | |
+ |message | |String | |
+        h3. User
+        ||Field Name||Required||Type||Description||
+         |id | |Integer |The user id. |
+ |username | |String |The user name. |
